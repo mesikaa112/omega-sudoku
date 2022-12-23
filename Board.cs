@@ -4,26 +4,44 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace OmegaSudoku
 {
     internal class Board
     {
-        const int ROWS = 9;
-        const int COLS = 9;
         // the sudoku board
-        protected Cell[,] board;
+        private Cell[,] board;
 
         public Board(string boardString)
         {
             // Initialize the board with a string from the user
-            board = new Cell[ROWS, COLS];
+            board = new Cell[Constants.ROWS, Constants.COLS];
 
-            for (int i = 0; i < ROWS; i++)
+            for (int i = 0; i < Constants.ROWS; i++)
             {
-                for (int j = 0; j < COLS; j++)
+                for (int j = 0; j < Constants.COLS; j++)
                 {
-                    board[i, j] = new Cell(boardString[i + j] - '0');
+                    // casting from string to int
+                    board[i, j] = new Cell(boardString[(i * Constants.ROWS) + j] - '0');
                 }
+            }
+        }
+
+        public Cell[,] GetBoard()
+        {
+            return board;
+        }
+
+
+        public void PrintBoard()
+        {
+            for (int i = 0; i < Constants.ROWS; i++)
+            {
+                for (int j = 0; j < Constants.COLS; j++)
+                {
+                    Console.Write(board[i, j].GetValue() + " "); 
+                }
+                Console.WriteLine("");
             }
         }
     }
