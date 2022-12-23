@@ -16,15 +16,41 @@ namespace OmegaSudoku
             {
                 throw new InvalidBoardLengthException("there is an Error! you enterd invalid amount of cells");
             }
+            // if there are invalid characters in the string, raise Error
+            if (!CheckInvalidCharacters(boardString))
+                throw new InvalidCharactersInTheStringError("there is an Error! you entered invalid characters");
             // create board object
             Board board = new Board(boardString);
+            // check validate of Rows before stating to solve the sudoku
             if (!CheckInRowValidate(board))
                 throw new TwoValuesInTheSameRowError("there is an Error! there is two same values in the same row");
+            // check validate of Cols before stating to solve the sudoku
             if (!CheckInColValidate(board))
                 throw new TwoValuesInTheSameColError("there is an Error! there is two same values in the same col");
+            // check validate of Sub Squeres before stating to solve the sudoku
             if (!CheckInSubSqueresValidate(board))
                 throw new TwoValuesInTheSameSubSquereError("there is an Error! there is two same values in the same col");
             return board;
+        }
+
+
+
+        public bool CheckInvalidCharacters(string boardString)
+        {
+            // this method get the string of the baord and check if there are no invakid characters in it.
+            // if there are, the method return false, and true otherwise
+
+            // if the string is empty, return false
+            if (boardString == "")
+                return false;
+
+            // loop on every character in the string and check if he is valid
+            foreach(char c in boardString)
+            {
+                if (c < '0' || c > (Constants.ROWS + '0'))
+                    return false;
+            }
+            return true;
         }
 
 
@@ -33,7 +59,7 @@ namespace OmegaSudoku
             // this method gets the baord, if there is 2 same numbers in the same row the method returns true, false otherwise
             for (int i = 0; i < Constants.ROWS; i++)
             {
-                // copy the ellemnts of ROWCOLVALUES to a new array called temp
+                // copy the elemnts of ROWCOLVALUES to a new array called temp
                 int[] temp = new int[Constants.ROWCOLVALUES.Length];
                 Constants.ROWCOLVALUES.CopyTo(temp, 0);
 
@@ -58,7 +84,7 @@ namespace OmegaSudoku
             // this method gets the baord, if there is 2 same numbers in the same col the method returns true, false otherwise
             for (int j = 0; j < Constants.COLS; j++)
             {
-                // copy the ellemnts of ROWCOLVALUES to a new array called temp
+                // copy the elemnts of ROWCOLVALUES to a new array called temp
                 int[] temp = new int[Constants.ROWCOLVALUES.Length];
                 Constants.ROWCOLVALUES.CopyTo(temp, 0);
 
@@ -90,7 +116,7 @@ namespace OmegaSudoku
             {
                 for (int j = 0; j < Constants.COLS; j += sqrtCol)
                 {
-                    // copy the ellemnts of box to a new matrix called temp
+                    // copy the elemnts of box to a new matrix called temp
                     int[] temp = new int[Constants.ROWCOLVALUES.Length];
                     Constants.ROWCOLVALUES.CopyTo(temp, 0);
 
