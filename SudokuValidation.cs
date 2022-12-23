@@ -31,7 +31,6 @@ namespace OmegaSudoku
         public bool CheckInRowValidate(Board board)
         {
             // this method gets the baord, if there is 2 same numbers in the same row the method returns true, false otherwise
-
             for (int i = 0; i < Constants.ROWS; i++)
             {
                 // copy the ellemnts of ROWCOLVALUES to a new array called temp
@@ -57,7 +56,6 @@ namespace OmegaSudoku
         public bool CheckInColValidate(Board board)
         {
             // this method gets the baord, if there is 2 same numbers in the same col the method returns true, false otherwise
-
             for (int j = 0; j < Constants.COLS; j++)
             {
                 // copy the ellemnts of ROWCOLVALUES to a new array called temp
@@ -80,7 +78,7 @@ namespace OmegaSudoku
         }
 
 
-        public static bool CheckInSubSqueresValidate(Board board)
+        public bool CheckInSubSqueresValidate(Board board)
         {
             // this method gets the baord, if there is 2 same numbers in the same sub squere the method returns true, false otherwise
 
