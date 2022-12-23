@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OmegaSudoku
 {
-    internal class TwoValuesInTheSameSubSquereError
+    internal class TwoValuesInTheSameSubSquereError : Exception
     {
         public TwoValuesInTheSameSubSquereError(string message)
         {
