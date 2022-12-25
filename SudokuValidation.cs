@@ -9,7 +9,37 @@ namespace OmegaSudoku
 {
     internal class SudokuValidation
     {
-        public Board CheckValidate(string boardString)
+        public static bool IsValidPlacement(Board board, int row, int col, int value)
+        {
+            // this method checks if a value can be placed in the board in the row, col placement
+
+            // Check if the value appears in the same row or column
+            for (int i = 0; i < 9; i++)
+            {
+                if (board.GetBoard()[row, i].GetValue() == value || board.GetBoard()[i, col].GetValue() == value) 
+                    return false;
+            }
+
+            // check if the value appears in the same sub square
+            // squre root of ROWS and COLS
+            int sqrtRow = (int)Math.Sqrt(Constants.ROWS);
+            int sqrtCol = (int)Math.Sqrt(Constants.COLS);
+
+            int startRow = (row / sqrtRow) * sqrtRow;
+            int startCol = (col / sqrtCol) * sqrtCol;
+            for (int i = startRow; i < startRow + sqrtRow; i++)
+            {
+                for (int j = startCol; j < startCol + sqrtCol; j++)
+                {
+                    if (board.GetBoard()[i, j].GetValue() == value) 
+                        return false;
+                }
+            }
+            return true;
+        }
+
+
+        public static Board CheckValidate(string boardString)
         {
             // if the length of the string is not equals to rows*cols
             if (boardString.Length != Constants.ROWS * Constants.COLS)
@@ -35,7 +65,7 @@ namespace OmegaSudoku
 
 
 
-        public bool CheckInvalidCharacters(string boardString)
+        public static bool CheckInvalidCharacters(string boardString)
         {
             // this method get the string of the baord and check if there are no invakid characters in it.
             // if there are, the method return false, and true otherwise
@@ -53,7 +83,7 @@ namespace OmegaSudoku
         }
 
 
-        public bool CheckInRowValidate(Board board)
+        public static bool CheckInRowValidate(Board board)
         {
             // this method gets the baord, if there is 2 same numbers in the same row the method returns true, false otherwise
             for (int i = 0; i < Constants.ROWS; i++)
@@ -78,7 +108,7 @@ namespace OmegaSudoku
         }
 
 
-        public bool CheckInColValidate(Board board)
+        public static bool CheckInColValidate(Board board)
         {
             // this method gets the baord, if there is 2 same numbers in the same col the method returns true, false otherwise
             for (int j = 0; j < Constants.COLS; j++)
@@ -103,7 +133,7 @@ namespace OmegaSudoku
         }
 
 
-        public bool CheckInSubSqueresValidate(Board board)
+        public static bool CheckInSubSqueresValidate(Board board)
         {
             // this method gets the baord, if there is 2 same numbers in the same sub square the method returns true, false otherwise
 
