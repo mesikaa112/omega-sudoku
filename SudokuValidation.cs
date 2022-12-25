@@ -27,9 +27,9 @@ namespace OmegaSudoku
             // check validate of Cols before stating to solve the sudoku
             if (!CheckInColValidate(board))
                 throw new TwoValuesInTheSameColError("there is an Error! there is two same values in the same col");
-            // check validate of Sub Squeres before stating to solve the sudoku
+            // check validate of Sub Squares before stating to solve the sudoku
             if (!CheckInSubSqueresValidate(board))
-                throw new TwoValuesInTheSameSubSquereError("there is an Error! there is two same values in the same col");
+                throw new TwoValuesInTheSameSubSquareError("there is an Error! there is two same values in the same col");
             return board;
         }
 
@@ -43,7 +43,6 @@ namespace OmegaSudoku
             // if the string is empty, return false
             if (boardString == "")
                 return false;
-
             // loop on every character in the string and check if he is valid
             foreach(char c in boardString)
             {
@@ -106,7 +105,7 @@ namespace OmegaSudoku
 
         public bool CheckInSubSqueresValidate(Board board)
         {
-            // this method gets the baord, if there is 2 same numbers in the same sub squere the method returns true, false otherwise
+            // this method gets the baord, if there is 2 same numbers in the same sub square the method returns true, false otherwise
 
             // squre root of ROWS and COLS
             int sqrtRow = (int)Math.Sqrt(Constants.ROWS);
@@ -120,7 +119,7 @@ namespace OmegaSudoku
                     int[] temp = new int[Constants.ROWCOLVALUES.Length];
                     Constants.ROWCOLVALUES.CopyTo(temp, 0);
 
-                    // loop on the sub squeres in the board
+                    // loop on the sub squares in the board
                     for (int row = i; row < i + sqrtRow; row++)
                     {
                         for (int col = j; col < j + sqrtCol; col++)
@@ -130,7 +129,7 @@ namespace OmegaSudoku
                             {
                                 temp[board.GetBoard()[row, col].GetValue() - 1] = 0;
                             }
-                            // if not, it means that there is a value twice or more in the same sub squere
+                            // if not, it means that there is a value twice or more in the same sub square
                             else
                                 return false;
                         }
