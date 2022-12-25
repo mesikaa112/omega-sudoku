@@ -14,7 +14,7 @@ namespace OmegaSudoku
             // this method checks if a value can be placed in the board in the row, col placement
 
             // Check if the value appears in the same row or column
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < Constants.ROWS; i++)
             {
                 if (board.GetBoard()[row, i].GetValue() == value || board.GetBoard()[i, col].GetValue() == value) 
                     return false;
@@ -59,7 +59,7 @@ namespace OmegaSudoku
                 throw new TwoValuesInTheSameColError("there is an Error! there is two same values in the same col");
             // check validate of Sub Squares before stating to solve the sudoku
             if (!CheckInSubSqueresValidate(board))
-                throw new TwoValuesInTheSameSubSquareError("there is an Error! there is two same values in the same col");
+                throw new TwoValuesInTheSameSubSquareError("there is an Error! there is two same values in the same sub square");
             return board;
         }
 
@@ -94,14 +94,19 @@ namespace OmegaSudoku
 
                 for (int j = 0; j < Constants.COLS; j++)
                 {
-                    // if temp contains the board[i, j], the cell in temp will be 0
+                    // if temp contains the board[i, j], the cell in temp will be -1
                     if (temp.Contains(board.GetBoard()[i, j].GetValue()))
                     {
-                        temp[board.GetBoard()[i, j].GetValue() - 1] = 0;
+                        temp[board.GetBoard()[i, j].GetValue() - 1] = -1;
                     }
-                    // if not, it means that there is a value twice or more in the same row or the number is not between 1 to ROWS
+                    // if not, it means that there is a value twice or more in the same row or the value is 0
                     else
-                        return false;
+                    {
+                        if (board.GetBoard()[i, j].GetValue() == 0)
+                            continue;
+                        else
+                            return false;
+                    }
                 }
             }
             return true;
@@ -119,14 +124,19 @@ namespace OmegaSudoku
 
                 for (int i = 0; i < Constants.ROWS; i++)
                 {
-                    // if temp contains the board[i, j], the cell in temp will be 0
+                    // if temp contains the board[i, j], the cell in temp will be -1
                     if (temp.Contains(board.GetBoard()[i, j].GetValue()))
                     {
-                        temp[board.GetBoard()[i, j].GetValue() - 1] = 0;
+                        temp[board.GetBoard()[i, j].GetValue() - 1] = -1;
                     }
-                    // if not, it means that there is a value twice or more in the same col or the number is not between 1 to ROWS
+                    // if not, it means that there is a value twice or more in the same col or the value is 0
                     else
-                        return false;
+                    {
+                        if (board.GetBoard()[i, j].GetValue() == 0)
+                            continue;
+                        else
+                            return false;
+                    }
                 }
             }
             return true;
@@ -154,14 +164,19 @@ namespace OmegaSudoku
                     {
                         for (int col = j; col < j + sqrtCol; col++)
                         {
-                            // if temp contains the board[i, j], the cell in temp will be 0
+                            // if temp contains the board[i, j], the cell in temp will be -1
                             if (temp.Contains(board.GetBoard()[row, col].GetValue()))
                             {
-                                temp[board.GetBoard()[row, col].GetValue() - 1] = 0;
+                                temp[board.GetBoard()[row, col].GetValue() - 1] = -1;
                             }
-                            // if not, it means that there is a value twice or more in the same sub square
+                            // if not, it means that there is a value twice or more in the same sub square or the value is 0
                             else
-                                return false;
+                            {
+                                if (board.GetBoard()[row, col].GetValue() == 0)
+                                    continue;
+                                else
+                                    return false;
+                            }
                         }
                     }
 
