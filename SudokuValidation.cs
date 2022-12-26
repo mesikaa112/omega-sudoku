@@ -76,7 +76,7 @@ namespace OmegaSudoku
             // loop on every character in the string and check if he is valid
             foreach(char c in boardString)
             {
-                if (c < '0' || c > (Constants.ROWS + '0'))
+                if (!Constants.VALIDCHARACTERS.Contains(c))
                     return false;
             }
             return true;
