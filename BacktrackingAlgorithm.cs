@@ -38,22 +38,25 @@ namespace OmegaSudoku
                 return true;
 
             // Try all possibilities values in the empty cell
-            for (int value = 1; value <= Constants.ROWS; value++)
+            foreach (int value in board.GetBoard()[row, col].GetPossibleValues())
             {
-                // Check if the value is valid in the current cell
-                if (SudokuValidation.IsValidPlacement(board, row, col, value))
+                if (value != -1)
                 {
-                    // If the value is valid, fill in the cell and try to solve the rest of the puzzle
-                    board.GetBoard()[row, col].SetValue(value);
-                    if (SolveBacktracking(board)) 
-                        return true;
+                    // Check if the value is valid in the current cell
+                    if (SudokuValidation.IsValidPlacement(board, row, col, value))
+                    {
+                        // If the value is valid, fill in the cell and try to solve the rest of the puzzle
+                        board.GetBoard()[row, col].SetValue(value);
+                        if (SolveBacktracking(board))
+                            return true;
 
-                    // If the puzzle could not be solved, backtrack and try a different number
-                    board.GetBoard()[row, col].SetValue(0);
+                        // If the puzzle could not be solved, backtrack and try a different number
+                        board.GetBoard()[row, col].SetValue(0);
+                    }
                 }
             }
 
-            // If no valid value was found, return false
+            // If no valid value was found it means that the board is not aolveable, return false
             return false;
         }
     }
