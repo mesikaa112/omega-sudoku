@@ -10,26 +10,26 @@ namespace OmegaSudoku
     internal class Board
     {
         // the sudoku board
-        private Cell[,] board;
+        private Cell[,] _board;
 
         public Board(string boardString)
         {
             // Initialize the board with a string from the user
-            board = new Cell[Constants.ROWS, Constants.COLS];
+            _board = new Cell[Constants.ROWS, Constants.COLS];
 
             for (int i = 0; i < Constants.ROWS; i++)
             {
                 for (int j = 0; j < Constants.COLS; j++)
                 {
                     // casting from string to int
-                    board[i, j] = new Cell(boardString[(i * Constants.ROWS) + j] - '0');
+                    _board[i, j] = new Cell(boardString[(i * Constants.ROWS)+ j] - '0');
                 }
             }
         }
 
         public Cell[,] GetBoard()
         {
-            return board;
+            return _board;
         }
 
 
@@ -39,7 +39,7 @@ namespace OmegaSudoku
             {
                 for (int j = 0; j < Constants.COLS; j++)
                 {
-                    Console.Write(board[i, j].GetValue() + " "); 
+                    Console.Write(_board[i, j].GetValue() + " "); 
                 }
                 Console.WriteLine("");
             }

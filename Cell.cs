@@ -17,7 +17,10 @@ namespace OmegaSudoku
             // Initialize the cell with a value
             _value = value;
             if (value == 0)
-                _possibleValues = Constants.ROWCOLVALUES;
+            {
+                // if the cell is empty, initialize an array of possible values from 1 to rows
+                _possibleValues = Enumerable.Range(1, Constants.ROWCOLVALUES.Length).ToArray();
+            }
             else
                 _possibleValues = null;
         }
@@ -41,10 +44,10 @@ namespace OmegaSudoku
 
         public void EraseCellInPossibleValues(int value)
         {
-            // this method gets a value and switch this value in _possibleValues to 0
+            // this method gets a value and switch this value in _possibleValues to -1
             if (_possibleValues != null)
             {
-                _possibleValues[value - 1] = 0;
+                _possibleValues[value - 1] = -1;
             }
         }
     }
