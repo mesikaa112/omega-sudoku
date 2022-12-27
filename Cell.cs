@@ -52,7 +52,7 @@ namespace OmegaSudoku
         public void EraseCellInPossibleValues(int value)
         {
             // this method gets a value and erase the value from the array list
-            if (_possibleValues != null)
+            if (_possibleValues != null && _possibleValues.Contains(value))
             {
                 _possibleValues.Remove(value);
             }
