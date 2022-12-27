@@ -44,7 +44,7 @@ namespace OmegaSudoku
             // if the length of the string is not equals to rows*cols
             if (boardString.Length != Constants.ROWS * Constants.COLS)
             {
-                throw new InvalidBoardLengthException("there is an Error! you enterd invalid amount of cells");
+                throw new InvalidBoardLengthError("there is an Error! you enterd invalid amount of cells");
             }
             // if there are invalid characters in the string, raise Error
             if (!CheckInvalidCharacters(boardString))

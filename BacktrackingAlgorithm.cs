@@ -40,19 +40,16 @@ namespace OmegaSudoku
             // Try all possibilities values in the empty cell
             foreach (int value in board.GetBoard()[row, col].GetPossibleValues())
             {
-                if (value != -1)
+                // Check if the value is valid in the current cell
+                if (SudokuValidation.IsValidPlacement(board, row, col, value))
                 {
-                    // Check if the value is valid in the current cell
-                    if (SudokuValidation.IsValidPlacement(board, row, col, value))
-                    {
-                        // If the value is valid, fill in the cell and try to solve the rest of the puzzle
-                        board.GetBoard()[row, col].SetValue(value);
-                        if (SolveBacktracking(board))
-                            return true;
+                    // If the value is valid, fill in the cell and try to solve the rest of the puzzle
+                    board.GetBoard()[row, col].SetValue(value);
+                    if (SolveBacktracking(board))
+                        return true;
 
-                        // If the puzzle could not be solved, backtrack and try a different number
-                        board.GetBoard()[row, col].SetValue(0);
-                    }
+                    // If the puzzle could not be solved, backtrack and try a different number
+                    board.GetBoard()[row, col].SetValue(0);
                 }
             }
 
