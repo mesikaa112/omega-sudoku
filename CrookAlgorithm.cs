@@ -78,6 +78,7 @@ namespace OmegaSudoku
                     if (board.GetBoard()[i, j].GetValue() == 0)
                     {
                         int value;
+
                         // Naked Single Cell
 
                         // if there is only two possible value for this cell,
@@ -94,7 +95,7 @@ namespace OmegaSudoku
 
                         // Hidden Single in Cell
 
-                        // if there is a value that found only in one cell of the sub square,
+                        // if there is a value that found only in one cell of the sub square, row or col,
                         // erase this value from all the other possible values array list
                         // in this row, cell and sub square of the empty cell and place this value in the borad[i, j] spot
                         value = CheckForHiddenSingle(board, i, j);
@@ -105,18 +106,6 @@ namespace OmegaSudoku
                             // set the value of board[i, j] to the value that found only in one cell of the sub square possible value
                             board.GetBoard()[i, j].SetValue(value);
                         }
-
-                        //// 
-
-                        //// if there are only two possible value for this cell, and in the same row, col or sub square
-                        //// those are the only possible values, erase those values from all the other possible values array list
-                        //// in this row, cell and sub square of the empty cell 
-                        //if (board.GetBoard()[i, j].GetPossibleValues().Count == 2)
-                        //{
-                        //    // search for another empty cell that his possible values are equal to this cell possible values
-                        //    if (CheckForCell(board, i, j, 2))
-
-                        //}
                     }
                 }
             }
@@ -169,12 +158,60 @@ namespace OmegaSudoku
 
         public static int CheckForHiddenSingle(Board board, int row, int col)
         {
-            // this method return the value if there is a value that found only in one cell of the sub square, -1 otherwise
+            // this method return the value if there is a value that found only in one cell of the sub square, row or col, -1 otherwise
 
             int hiddenSingleValue = -1;
 
             foreach (int value in board.GetBoard()[row, col].GetPossibleValues())
             {
+                hiddenSingleValue = value;
+
+                // check for col
+                for (int i = 0; i < Constants.ROWS; i++)
+                {
+                    // if the cell is empty
+                    if (board.GetBoard()[i, col].GetValue() == 0 && i != row)
+                    {
+                        if (board.GetBoard()[i, col].GetPossibleValues().Contains(value))
+                        {
+                            hiddenSingleValue = -1;
+                            break;
+                        }
+                    }
+
+                    if (hiddenSingleValue == -1)
+                        break;
+                }
+                // if not found a possible value in other cell that equals to the value of the cell in board[row, col] in the rows or cols
+                if (hiddenSingleValue != -1)
+                    return hiddenSingleValue;
+
+
+                hiddenSingleValue = value;
+
+                // check for row
+                for (int i = 0; i < Constants.ROWS; i++)
+                {
+                    // if the cell is empty
+                    if (board.GetBoard()[row, i].GetValue() == 0 && i != col)
+                    {
+                        if (board.GetBoard()[row, i].GetPossibleValues().Contains(value))
+                        {
+                            hiddenSingleValue = -1;
+                            break;
+                        }
+                    }
+
+                    if (hiddenSingleValue == -1)
+                        break;
+                }
+
+                // if not found a possible value in other cell that equals to the value of the cell in board[row, col] in the rows or cols
+                if (hiddenSingleValue != -1)
+                    return hiddenSingleValue;
+
+
+                // check for sub square
                 hiddenSingleValue = value;
 
                 int sqrtRow = (int)Math.Sqrt(Constants.ROWS);
@@ -191,16 +228,12 @@ namespace OmegaSudoku
                         // if the cell is empty
                         if (board.GetBoard()[i, j].GetValue() == 0 && (i != row || j != col))
                         {
-                            // loop on the possible values of the empty cell in board[i, j]
-                            foreach (int possibleValue in board.GetBoard()[i, j].GetPossibleValues())
+                            // if there is a possible value in other cell that equals to the value of the cell in board[row, col], 
+                            // check the next possible value of the cell in board[row, col]
+                            if (board.GetBoard()[i, j].GetPossibleValues().Contains(value))
                             {
-                                // if there is a possible value in other cell that equals to the value of the cell in board[row, col], 
-                                // check the next possible value of the cell in board[row, col]
-                                if (possibleValue == value)
-                                {
-                                    hiddenSingleValue = -1;
-                                    break;
-                                }
+                                hiddenSingleValue = -1;
+                                break;
                             }
                         }
                         if (hiddenSingleValue == -1)
@@ -209,6 +242,10 @@ namespace OmegaSudoku
                     if (hiddenSingleValue == -1)
                         break;
                 }
+
+                // if not found a possible value in other cell that equals to the value of the cell in board[row, col] in the rows or cols
+                if (hiddenSingleValue != -1)
+                    return hiddenSingleValue;
             }
             return hiddenSingleValue;
         }
