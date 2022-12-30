@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace OmegaSudoku
 {
     internal class Cell
     {
         private int _value;
-        // every empty cell in the sudoku board have an array of values that can be in this cell
-        private int[]? _possibleValues;
+        // every empty cell in the sudoku board have an array list of values that can be in this cell
+        private ArrayList? _possibleValues;
 
         public Cell(int value)
         {
@@ -18,8 +19,14 @@ namespace OmegaSudoku
             _value = value;
             if (value == 0)
             {
-                // if the cell is empty, initialize an array of possible values from 1 to rows
-                _possibleValues = Enumerable.Range(1, Constants.ROWCOLVALUES.Length).ToArray();
+                // if the cell is empty, initialize an array of possible values that contains all the possible values
+                _possibleValues = new ArrayList();
+                Constants.VALUESOFCELLS = Constants.AddValuesOfCells();
+                foreach (var possibleValue in Constants.VALUESOFCELLS)
+                {
+                    _possibleValues.Add(possibleValue);
+                }
+                
             }
             else
                 _possibleValues = null;
@@ -36,18 +43,19 @@ namespace OmegaSudoku
         }
 
 
-        public int[]? GetPossibleValues()
+        public ArrayList? GetPossibleValues()
         {
             return _possibleValues;
         }
 
 
+
         public void EraseCellInPossibleValues(int value)
         {
-            // this method gets a value and switch this value in _possibleValues to -1
-            if (_possibleValues != null)
+            // this method gets a value and erase the value from the array list
+            if (_possibleValues != null && _possibleValues.Contains(value))
             {
-                _possibleValues[value - 1] = -1;
+                _possibleValues.Remove(value);
             }
         }
     }
