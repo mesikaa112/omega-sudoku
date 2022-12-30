@@ -38,7 +38,7 @@ namespace OmegaSudoku
                 return true;
 
             // Try all possibilities values in the empty cell
-            foreach (int value in board.GetBoard()[row, col].GetPossibleValues())
+            foreach (char value in board.GetBoard()[row, col].GetPossibleValues())
             {
                 // Check if the value is valid in the current cell
                 if (SudokuValidation.IsValidPlacement(board, row, col, value))

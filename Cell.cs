@@ -21,7 +21,8 @@ namespace OmegaSudoku
             {
                 // if the cell is empty, initialize an array of possible values that contains all the possible values
                 _possibleValues = new ArrayList();
-                foreach (var possibleValue in Constants.ROWCOLVALUES)
+                Constants.VALUESOFCELLS = Constants.AddValuesOfCells();
+                foreach (var possibleValue in Constants.VALUESOFCELLS)
                 {
                     _possibleValues.Add(possibleValue);
                 }

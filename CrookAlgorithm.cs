@@ -162,7 +162,7 @@ namespace OmegaSudoku
 
             int hiddenSingleValue = -1;
 
-            foreach (int value in board.GetBoard()[row, col].GetPossibleValues())
+            foreach (char value in board.GetBoard()[row, col].GetPossibleValues())
             {
                 hiddenSingleValue = value;
 

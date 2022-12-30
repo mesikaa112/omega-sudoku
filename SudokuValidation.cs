@@ -41,10 +41,20 @@ namespace OmegaSudoku
 
         public static Board CheckValidate(string boardString)
         {
-            // if the length of the string is not equals to rows*cols
-            if (boardString.Length != Constants.ROWS * Constants.COLS)
+            // this method check the validate of the board before starting calculate it
+
+            // if the length have an integer sqrt, the length of the string is valid
+            // and if the length of the string is valid, set the amount of rols and cols to this sqrt
+            double sqrtRow = Math.Sqrt(boardString.Length);
+            double sqrtCol = Math.Sqrt(boardString.Length);
+            if (sqrtRow != (int)sqrtCol)
             {
                 throw new InvalidBoardLengthError("there is an Error! you enterd invalid amount of cells");
+            }
+            else
+            {
+                Constants.ROWS = (int)sqrtRow;
+                Constants.COLS = (int)sqrtCol;
             }
             // if there are invalid characters in the string, raise Error
             if (!CheckInvalidCharacters(boardString))
@@ -70,9 +80,7 @@ namespace OmegaSudoku
             // this method get the string of the baord and check if there are no invakid characters in it.
             // if there are, the method return false, and true otherwise
 
-            // if the string is empty, return false
-            if (boardString == "")
-                return false;
+            Constants.VALIDCHARACTERS = Constants.AddValidCharacters();
             // loop on every character in the string and check if he is valid
             foreach(char c in boardString)
             {
@@ -88,16 +96,20 @@ namespace OmegaSudoku
             // this method gets the baord, if there is 2 same numbers in the same row the method returns true, false otherwise
             for (int i = 0; i < Constants.ROWS; i++)
             {
-                // copy the elemnts of ROWCOLVALUES to a new array called temp
-                int[] temp = new int[Constants.ROWCOLVALUES.Length];
-                Constants.ROWCOLVALUES.CopyTo(temp, 0);
+                Constants.VALUESOFCELLS = Constants.AddValuesOfCells();
+
+                // copy the elemnts of VALUESOFCELLS to a new array called temp
+                char[] temp = new char[Constants.VALUESOFCELLS.Length];
+                Constants.VALUESOFCELLS.CopyTo(temp, 0);
 
                 for (int j = 0; j < Constants.COLS; j++)
                 {
-                    // if temp contains the board[i, j], the cell in temp will be -1
-                    if (temp.Contains(board.GetBoard()[i, j].GetValue()))
+                    // if temp contains the board[i, j], the cell in temp will be space
+                    char value = (char)board.GetBoard()[i, j].GetValue();
+                    value += '0';
+                    if (temp.Contains(value))
                     {
-                        temp[board.GetBoard()[i, j].GetValue() - 1] = -1;
+                        temp[board.GetBoard()[i, j].GetValue() - 1] = ' ';
                     }
                     // if not, it means that there is a value twice or more in the same row or the value is 0
                     else
@@ -118,16 +130,20 @@ namespace OmegaSudoku
             // this method gets the baord, if there is 2 same numbers in the same col the method returns true, false otherwise
             for (int j = 0; j < Constants.COLS; j++)
             {
-                // copy the elemnts of ROWCOLVALUES to a new array called temp
-                int[] temp = new int[Constants.ROWCOLVALUES.Length];
-                Constants.ROWCOLVALUES.CopyTo(temp, 0);
+                Constants.VALUESOFCELLS = Constants.AddValuesOfCells();
+
+                // copy the elemnts of VALUESOFCELLS to a new array called temp
+                char[] temp = new char[Constants.VALUESOFCELLS.Length];
+                Constants.VALUESOFCELLS.CopyTo(temp, 0);
 
                 for (int i = 0; i < Constants.ROWS; i++)
                 {
-                    // if temp contains the board[i, j], the cell in temp will be -1
-                    if (temp.Contains(board.GetBoard()[i, j].GetValue()))
+                    // if temp contains the board[i, j], the cell in temp will be space
+                    char value = (char)board.GetBoard()[i, j].GetValue();
+                    value += '0';
+                    if (temp.Contains(value))
                     {
-                        temp[board.GetBoard()[i, j].GetValue() - 1] = -1;
+                        temp[board.GetBoard()[i, j].GetValue() - 1] = ' ';
                     }
                     // if not, it means that there is a value twice or more in the same col or the value is 0
                     else
@@ -155,19 +171,23 @@ namespace OmegaSudoku
             {
                 for (int j = 0; j < Constants.COLS; j += sqrtCol)
                 {
-                    // copy the elemnts of box to a new matrix called temp
-                    int[] temp = new int[Constants.ROWCOLVALUES.Length];
-                    Constants.ROWCOLVALUES.CopyTo(temp, 0);
+                    Constants.VALUESOFCELLS = Constants.AddValuesOfCells();
+
+                    // copy the elemnts of VALUESOFCELLS to a new array called temp
+                    char[] temp = new char[Constants.VALUESOFCELLS.Length];
+                    Constants.VALUESOFCELLS.CopyTo(temp, 0);
 
                     // loop on the sub squares in the board
                     for (int row = i; row < i + sqrtRow; row++)
                     {
                         for (int col = j; col < j + sqrtCol; col++)
                         {
-                            // if temp contains the board[i, j], the cell in temp will be -1
-                            if (temp.Contains(board.GetBoard()[row, col].GetValue()))
-                            {
-                                temp[board.GetBoard()[row, col].GetValue() - 1] = -1;
+                            // if temp contains the board[i, j], the cell in temp will be space
+                            char value = (char)board.GetBoard()[row, col].GetValue();
+                            value += '0';
+                            if (temp.Contains(value))
+                            { 
+                                temp[board.GetBoard()[row, col].GetValue() - 1] = ' ';
                             }
                             // if not, it means that there is a value twice or more in the same sub square or the value is 0
                             else

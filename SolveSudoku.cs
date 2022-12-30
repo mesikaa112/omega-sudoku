@@ -7,11 +7,15 @@ using System.Diagnostics;
 
 namespace OmegaSudoku
 {
+    /// <summary>
+    /// Author: Yonatan Mesika
+    /// 
+    /// </summary>
     internal class SolveSudoku
     {
         public static void StartSolving()
         {
-            // this method catch all the errors
+            // this method catch all the exceptions
 
             while (true)
             {
