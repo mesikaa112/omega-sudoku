@@ -39,18 +39,8 @@ namespace OmegaSudoku
             {
                 for (int j = 0; j < Constants.COLS; j++)
                 {
-                    // if the cell was empty in the beginning
-                    if (_board[i, j].GetValue() >= 48)
-                    {
-                        string printValue = string.Format("{0, 3}", _board[i, j].GetValue() - 48);
-                        Console.Write(printValue);
-                    }
-                    else
-                    {
-                        string printValue = string.Format("{0, 3}", _board[i, j].GetValue());
-                        Console.Write(printValue);
-                    }
-                    
+                    string printValue = string.Format("{0, 3}", _board[i, j].GetValue());
+                    Console.Write(printValue);   
                 }
                 Console.WriteLine("");
             }
