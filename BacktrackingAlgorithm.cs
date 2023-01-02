@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,10 +42,10 @@ namespace OmegaSudoku
             foreach (char value in board.GetBoard()[row, col].GetPossibleValues())
             {
                 // Check if the value is valid in the current cell
-                if (SudokuValidation.IsValidPlacement(board, row, col, value))
+                if (SudokuValidation.IsValidPlacement(board, row, col, (int)(value - '0')))
                 {
                     // If the value is valid, fill in the cell and try to solve the rest of the puzzle
-                    board.GetBoard()[row, col].SetValue(value);
+                    board.GetBoard()[row, col].SetValue((int)(value - '0'));
                     if (SolveBacktracking(board))
                         return true;
 
