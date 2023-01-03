@@ -39,7 +39,7 @@ namespace OmegaSudoku
             {
                 for (int j = 0; j < Constants.COLS; j++)
                 {
-                    string printValue = string.Format("{0, 3}", _board[i, j].GetValue());
+                    string printValue = string.Format("{0, 3}", (char)(_board[i, j].GetValue() + '0'));
                     Console.Write(printValue);   
                 }
                 Console.WriteLine("");
