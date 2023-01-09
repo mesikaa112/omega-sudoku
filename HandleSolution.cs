@@ -8,7 +8,7 @@ namespace OmegaSudoku
 {
     internal class HandleSolution
     {
-        /// <summary>
+        /// <summary> 
         /// this method convert the DLX structure into a int[,] matrix that present the solved board
         /// </summary>
         /// <param name="solution"> the solution of the board in list<DancingNode> </param>
