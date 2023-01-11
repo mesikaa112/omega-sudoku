@@ -4,19 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using OmegaSudoku.Exceptions;
 
 namespace OmegaSudoku
 {
     /// <summary>
     /// Author: Yonatan Mesika
-    /// 
+    /// Date of Submission: 16.01.23
     /// </summary>
     internal class SolveSudoku
     {
+        /// <summary>
+        /// this method catches all the exceptions
+        /// </summary>
         public static void StartSolving()
         {
-            // this method catch all the exceptions
-
             while (true)
             {
                 try
@@ -58,40 +60,44 @@ namespace OmegaSudoku
             }
         }
 
-
-
+        /// <summary>
+        /// this method solves the sudoku board
+        /// </summary>
+        /// <exception cref="UnSolveableBoardError"> the board is unsolveable </exception>
         public static void Solve()
         {
-            // this method solve the sudoku board
-
+            string boardString = GetBoardString();
             Stopwatch stopwatch = new Stopwatch();
             // start the clock
-            string boardString = GetBoardString();
             stopwatch.Start();
-            Board board = SudokuValidation.CheckValidate(boardString);
+            MatrixIntBoard board = SudokuValidation.CheckValidate(boardString);
             Console.WriteLine("The board before solving:");
             board.PrintBoard();
             Console.WriteLine("------------------------------------------------");
-            // optimize the solving of the board
-            CrookAlgorithm.SetPossibleValues(board);
-            // solve the board
-            bool solveable = BacktrackingAlgorithm.SolveBacktracking(board);
+            byte[,] cover = ExactCoverMatrix.ChangeToExactCoverMatrix(board);
+            HeaderNode DLXStructure = DLXSolver.CreateDLXStructure(cover);
+            List<DancingNode> solution = new List<DancingNode>();
             // if not solveable throw an error
-            if (!solveable)
+            if (!DLXSolver.DLXSolve(DLXStructure, solution))
+            {
+                // stop the clock
+                stopwatch.Stop();
+                Console.WriteLine("time passed: {0} milliseconds", stopwatch.ElapsedMilliseconds);
                 throw new UnSolveableBoardError("there is an Error! the board is not solveable");
-            Console.WriteLine("The solved Board:");
-            board.PrintBoard();
-            Console.WriteLine("------------------------------------------------");
-            // stop the clock
+            }
+            // if solveable, print the solution
+            HandleSolution.SolutionHandler(solution);
             stopwatch.Stop();
             Console.WriteLine("time passed: {0} milliseconds", stopwatch.ElapsedMilliseconds);
         }
 
-
-
+        /// <summary>
+        /// this method returns the string of the board by the relvant option
+        /// </summary>
+        /// <param name="readOption"> the input option of the board </param>
+        /// <returns> the string of the board by the relvant option </returns>
         public static string Menu(string readOption)
         {
-            // this method return the string of the board by the relvant option
             switch (readOption)
             {
                 case "file":
@@ -105,27 +111,35 @@ namespace OmegaSudoku
                     Environment.Exit(0);
                     break;
                 default:
-                    Menu(Output.GetNewOption());
-                    break;
+                    return readOption;
             }
             return "";
         }
 
-
-
+        /// <summary>
+        /// this method returns the board string by the relevant option
+        /// </summary>
+        /// <returns> the board string by the relevant option </returns>
         public static string GetBoardString()
         {
-            // this method return the board string by the relevant option
-            Output.StartSolvingOutput();
-            string readOption = Console.ReadLine();
-            string boardString = Menu(readOption);
+            string boardString;
+            while (true)
+            {
+                Output.StartSolvingOutput();
+                string readOption = Console.ReadLine();
+                boardString = Menu(readOption);
+                if (boardString != readOption)
+                    break;
+            }
             return boardString;
         }
 
-
+        /// <summary>
+        /// this method gets from a file the string of the board
+        /// </summary>
+        /// <returns> the string of the board </returns>
         public static string ReadFromFile()
         {
-            // this method gets from a file the string of the board
             string filePath = Output.GetFilePath();
             string boardString = File.ReadAllText(filePath);
             return boardString;
