@@ -77,7 +77,8 @@ namespace OmegaSudoku
             HeaderNode DLXStructure = DLXSolver.CreateDLXStructure(cover);
             List<DancingNode> solution = new List<DancingNode>();
             // if not solveable throw an error
-            if (!DLXSolver.DLXSolve(DLXStructure, solution))
+            bool isSolveabale = DLXSolver.DLXSolve(DLXStructure, solution);
+            if (!isSolveabale)
             {
                 // stop the clock
                 stopwatch.Stop();

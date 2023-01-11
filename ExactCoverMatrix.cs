@@ -11,8 +11,6 @@ namespace OmegaSudoku
     /// </summary>
     internal class ExactCoverMatrix
     {
-        private static byte[,] _coverMatrix = new byte[Constants.SIZE * Constants.SIZE * Constants.SIZE, Constants.SIZE * Constants.SIZE * Constants.NUMBER_OF_CONSTRAINTS];
-
         /// <summary>
         /// this method changes the int[,] matrix board to a binary exact cover matrix
         /// </summary>
@@ -20,6 +18,9 @@ namespace OmegaSudoku
         /// <returns> the binary exact cover matrix </returns>
         public static byte[,] ChangeToExactCoverMatrix(MatrixIntBoard board)
         {
+            // the exact cover matrix
+            byte[,] coverMatrix = new byte[Constants.SIZE * Constants.SIZE * Constants.SIZE, Constants.SIZE * Constants.SIZE * Constants.NUMBER_OF_CONSTRAINTS];
+
             // The current column for the cell constraint
             int currentCellConstraintColumn = 0;
             // The current column for the column constraint
@@ -53,16 +54,16 @@ namespace OmegaSudoku
                         if (value == 0 || possibleValueForCell == value)
                         {
                             // Fill the cell constraint
-                            _coverMatrix[currentRow, currentCellConstraintColumn] = 1;
+                            coverMatrix[currentRow, currentCellConstraintColumn] = 1;
 
                             // Fill the column constraint
-                            _coverMatrix[currentRow, currentColumnConstraintColumn] = 1;
+                            coverMatrix[currentRow, currentColumnConstraintColumn] = 1;
 
                             // Fill the row constraint
-                            _coverMatrix[currentRow, currentRowConstraintColumn + possibleValueForCell - 1] = 1;
+                            coverMatrix[currentRow, currentRowConstraintColumn + possibleValueForCell - 1] = 1;
 
                             // Fill the square constraint
-                            _coverMatrix[currentRow, currentSubSquareConstraintColumn + square * Constants.SIZE + possibleValueForCell - 1] = 1;
+                            coverMatrix[currentRow, currentSubSquareConstraintColumn + square * Constants.SIZE + possibleValueForCell - 1] = 1;
                         }
                         currentRow++;
                         currentColumnConstraintColumn++;
@@ -71,7 +72,7 @@ namespace OmegaSudoku
                 }
                 currentRowConstraintColumn += Constants.SIZE;
             }
-            return _coverMatrix;
+            return coverMatrix;
         }
     }
 }
