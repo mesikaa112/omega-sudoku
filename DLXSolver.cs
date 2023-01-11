@@ -8,6 +8,9 @@ using System.Xml.Linq;
 
 namespace OmegaSudoku
 {
+    /// <summary>
+    /// this class is responsible for solving the DLX structure
+    /// </summary>
     internal class DLXSolver
     {
         /// <summary>
@@ -36,7 +39,7 @@ namespace OmegaSudoku
             // loop threw the rows in the cover matrix
             for (int row = 0; row < coverMatrix.GetLength(0); row++)
             {
-                DancingNode prev = null;
+                DancingNode? prev = null;
                 // loop threw the cols in the cover matrix
                 for (int col = 0; col < coverMatrix.GetLength(1); col++)
                 {

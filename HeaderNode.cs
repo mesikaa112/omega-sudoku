@@ -7,6 +7,9 @@ using System.Transactions;
 
 namespace OmegaSudoku
 {
+    /// <summary>
+    /// this class is responsible for the column header node of the DLX structure
+    /// </summary>
     internal class HeaderNode : DancingNode
     {
         // The number of connected nodes in the current column

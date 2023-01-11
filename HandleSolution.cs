@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace OmegaSudoku
 {
+    /// <summary>
+    /// this class is responsible for handling the solution - converts the solutions
+    /// </summary>
     internal class HandleSolution
     {
         /// <summary> 
@@ -49,7 +52,7 @@ namespace OmegaSudoku
                 board[row, col] = num;
             }
             // print the solution of the sudoku board
-            MatrixIntBoard.PrintSolution(board);
+            Output.PrintSolution(board);
         }
     }
 }

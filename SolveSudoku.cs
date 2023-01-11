@@ -9,8 +9,7 @@ using OmegaSudoku.Exceptions;
 namespace OmegaSudoku
 {
     /// <summary>
-    /// Author: Yonatan Mesika
-    /// Date of Submission: 16.01.23
+    /// this class is responsible for loop the solving of the sudoku and catch all the exceptions
     /// </summary>
     internal class SolveSudoku
     {
@@ -66,13 +65,13 @@ namespace OmegaSudoku
         /// <exception cref="UnSolveableBoardError"> the board is unsolveable </exception>
         public static void Solve()
         {
-            string boardString = GetBoardString();
+            string? boardString = GetBoardString();
             Stopwatch stopwatch = new Stopwatch();
             // start the clock
             stopwatch.Start();
             MatrixIntBoard board = SudokuValidation.CheckValidate(boardString);
             Console.WriteLine("The board before solving:");
-            board.PrintBoard();
+            Output.PrintBoard(board);
             Console.WriteLine("------------------------------------------------");
             byte[,] cover = ExactCoverMatrix.ChangeToExactCoverMatrix(board);
             HeaderNode DLXStructure = DLXSolver.CreateDLXStructure(cover);
@@ -96,12 +95,12 @@ namespace OmegaSudoku
         /// </summary>
         /// <param name="readOption"> the input option of the board </param>
         /// <returns> the string of the board by the relvant option </returns>
-        public static string Menu(string readOption)
+        public static string? Menu(string? readOption)
         {
             switch (readOption)
             {
                 case "file":
-                    string boardString = ReadFromFile();
+                    string? boardString = ReadFromFile();
                     return boardString;
                 case "console":
                     boardString = Output.ReadFromConsole();
@@ -120,13 +119,13 @@ namespace OmegaSudoku
         /// this method returns the board string by the relevant option
         /// </summary>
         /// <returns> the board string by the relevant option </returns>
-        public static string GetBoardString()
+        public static string? GetBoardString()
         {
-            string boardString;
+            string? boardString;
             while (true)
             {
                 Output.StartSolvingOutput();
-                string readOption = Console.ReadLine();
+                string? readOption = Console.ReadLine();
                 boardString = Menu(readOption);
                 if (boardString != readOption)
                     break;
@@ -138,10 +137,15 @@ namespace OmegaSudoku
         /// this method gets from a file the string of the board
         /// </summary>
         /// <returns> the string of the board </returns>
-        public static string ReadFromFile()
+        public static string? ReadFromFile()
         {
-            string filePath = Output.GetFilePath();
-            string boardString = File.ReadAllText(filePath);
+            string? filePath = Output.GetFilePath();
+            string? boardString = null;
+            // if filePath is not null read from file, else throw an error
+            if (filePath != null)
+                boardString = File.ReadAllText(filePath);
+            else
+                throw new FileNotFoundException("there is an Error! file not found");
             return boardString;
         }
     }

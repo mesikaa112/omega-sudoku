@@ -8,6 +8,9 @@ namespace OmegaSudoku.Exceptions
 {
     internal class InvalidBoardLengthError : Exception
     {
+        /// <summary>
+        /// this class is the invalid board length custom exception
+        /// </summary>
         public InvalidBoardLengthError(string message)
         {
             Console.WriteLine(message);

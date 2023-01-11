@@ -8,6 +8,9 @@ using OmegaSudoku.Exceptions;
 
 namespace OmegaSudoku
 {
+    /// <summary>
+    /// this class is responsible for the validation of the sudoku board before starting to solve the board
+    /// </summary>
     internal class SudokuValidation
     {
         /// <summary>
@@ -20,11 +23,17 @@ namespace OmegaSudoku
         /// <exception cref="TwoValuesInTheSameRowError"> there are two or more same values in the same row </exception>
         /// <exception cref="TwoValuesInTheSameColError"> there are two or more same values in the same column </exception>
         /// <exception cref="TwoValuesInTheSameSubSquareError"> there are two or more same values in the same sub square </exception>
-        public static MatrixIntBoard CheckValidate(string boardString)
+        public static MatrixIntBoard CheckValidate(string? boardString)
         {
             // if the length have an integer sqrt, the length of the string is valid
             // and if the length of the string is valid, set the amount of rols and cols to this sqrt
-            double sqrtSize = Math.Sqrt(boardString.Length);
+            double sqrtSize = 0;
+            // check if boardString is not null before 
+            if (boardString != null)
+                sqrtSize = Math.Sqrt(boardString.Length);
+            else
+                throw new InvalidBoardLengthError("there is an Error! you entered null instead the board");
+
             if (sqrtSize != (int)sqrtSize)
             {
                 throw new InvalidBoardLengthError("there is an Error! you enterd invalid amount of cells");

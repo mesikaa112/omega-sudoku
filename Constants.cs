@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace OmegaSudoku
 {
+    /// <summary>
+    /// this class is responsible for the constants values for each iteration of sudoku board solving
+    /// </summary>
     class Constants
     {
         // The number of constraints there are for each cell in the board
@@ -14,7 +17,7 @@ namespace OmegaSudoku
 
         public static int SIZE;
         // public static int[] ROWCOLVALUES = Enumerable.Range(1, 9).ToArray();
-        public static char[] VALUES_OF_CELLS;
+        public static char[]? VALUES_OF_CELLS;
         public static System.Collections.ArrayList VALID_CHARACTERS = new ArrayList();
 
         /// <summary>

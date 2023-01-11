@@ -8,6 +8,9 @@ namespace OmegaSudoku.Exceptions
 {
     internal class InvalidCharactersInTheStringError : Exception
     {
+        /// <summary>
+        /// this class is the invalid character in the string custom exception
+        /// </summary>
         public InvalidCharactersInTheStringError(string message)
         {
             Console.WriteLine(message);

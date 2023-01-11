@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace OmegaSudoku
 {
+    /// <summary>
+    /// this class is responsible for the creation of the exact cover matrix of the sudoku board
+    /// </summary>
     internal class ExactCoverMatrix
     {
-        private static byte[,]? _coverMatrix = new byte[Constants.SIZE * Constants.SIZE * Constants.SIZE, Constants.SIZE * Constants.SIZE * Constants.NUMBER_OF_CONSTRAINTS];
+        private static byte[,] _coverMatrix = new byte[Constants.SIZE * Constants.SIZE * Constants.SIZE, Constants.SIZE * Constants.SIZE * Constants.NUMBER_OF_CONSTRAINTS];
 
         /// <summary>
         /// this method changes the int[,] matrix board to a binary exact cover matrix

@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace OmegaSudoku
 {
+    /// <summary>
+    /// this class is responsible for creating the matrix[size, size]
+    /// </summary>
     internal class MatrixIntBoard
     {
         // the sudoku board
@@ -33,39 +36,6 @@ namespace OmegaSudoku
         public int[,] GetBoard()
         {
             return _board;
-        }
-
-        /// <summary>
-        /// this method prints the board before solving
-        /// </summary>
-        public void PrintBoard()
-        {
-            for (int i = 0; i < Constants.SIZE; i++)
-            {
-                for (int j = 0; j < Constants.SIZE; j++)
-                {
-                    string printValue = string.Format("{0, 3}", (char)(_board[i, j] + '0'));
-                    Console.Write(printValue);
-                }
-                Console.WriteLine("");
-            }
-        }
-
-        /// <summary>
-        /// this method prints the board after solving
-        /// </summary>
-        /// <param name="board"> the solved board in int[,] </param>
-        public static void PrintSolution(int[,] board)
-        {
-            for (int i = 0; i < Constants.SIZE; i++)
-            {
-                for (int j = 0; j < Constants.SIZE; j++)
-                {
-                    string printValue = string.Format("{0, 3}", (char)(board[i, j] + '0'));
-                    Console.Write(printValue);
-                }
-                Console.WriteLine("");
-            }
         }
     }
 }

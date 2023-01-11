@@ -31,10 +31,10 @@ namespace OmegaSudoku
         /// this method get the file path from the input of the user
         /// </summary>
         /// <returns> the file path </returns>
-        public static string GetFilePath()
+        public static string? GetFilePath()
         {
             Console.WriteLine("Enter a File Path:");
-            string filePath = Console.ReadLine();
+            string? filePath = Console.ReadLine();
             return filePath;
         }
 
@@ -42,11 +42,45 @@ namespace OmegaSudoku
         /// this method get the sudoku board from the console
         /// </summary>
         /// <returns> the sudoku board in string type </returns>
-        public static string ReadFromConsole()
+        public static string? ReadFromConsole()
         {
             Console.WriteLine("Enter a sudoku board:");
-            string boardString = Console.ReadLine();
+            string? boardString = Console.ReadLine();
             return boardString;
+        }
+
+        /// <summary>
+        /// this method prints the board before solving
+        /// </summary>
+        /// <param name="board"> the board of the sudoku </param>
+        public static void PrintBoard(MatrixIntBoard board)
+        {
+            for (int i = 0; i < Constants.SIZE; i++)
+            {
+                for (int j = 0; j < Constants.SIZE; j++)
+                {
+                    string printValue = string.Format("{0, 3}", (char)(board.GetBoard()[i, j] + '0'));
+                    Console.Write(printValue);
+                }
+                Console.WriteLine("");
+            }
+        }
+
+        /// <summary>
+        /// this method prints the board after solving
+        /// </summary>
+        /// <param name="board"> the solved board in int[,] </param>
+        public static void PrintSolution(int[,] board)
+        {
+            for (int i = 0; i < Constants.SIZE; i++)
+            {
+                for (int j = 0; j < Constants.SIZE; j++)
+                {
+                    string printValue = string.Format("{0, 3}", (char)(board[i, j] + '0'));
+                    Console.Write(printValue);
+                }
+                Console.WriteLine("");
+            }
         }
     }
 }

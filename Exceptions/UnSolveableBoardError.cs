@@ -8,6 +8,9 @@ namespace OmegaSudoku.Exceptions
 {
     internal class UnSolveableBoardError : Exception
     {
+        /// <summary>
+        /// this class is the unsolveable board custom exception
+        /// </summary>
         public UnSolveableBoardError(string message)
         {
             Console.WriteLine(message);

@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace OmegaSudoku
 {
+    /// <summary>
+    /// Author: Yonatan Mesika
+    /// Date of Submission: 16.01.23
+    /// </summary>
     internal class SudokuProgram
     {
         /// <summary>

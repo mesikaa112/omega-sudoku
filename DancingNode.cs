@@ -7,6 +7,9 @@ using System.Xml.Linq;
 
 namespace OmegaSudoku
 {
+    /// <summary>
+    /// this class is responsible for the regular node of the DLX structure
+    /// </summary>
     internal class DancingNode
     {
         // the linked nodes

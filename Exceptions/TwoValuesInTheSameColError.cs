@@ -8,6 +8,9 @@ namespace OmegaSudoku.Exceptions
 {
     internal class TwoValuesInTheSameColError : Exception
     {
+        /// <summary>
+        /// this class is the two values in the same col custom exception
+        /// </summary>
         public TwoValuesInTheSameColError(string message)
         {
             Console.WriteLine(message);
