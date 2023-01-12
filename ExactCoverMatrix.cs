@@ -18,8 +18,11 @@ namespace OmegaSudoku
         /// <returns> the binary exact cover matrix </returns>
         public static byte[,] ChangeToExactCoverMatrix(MatrixIntBoard board)
         {
-            // the exact cover matrix
+            // create empty exact cover matrix
             byte[,] coverMatrix = new byte[Constants.SIZE * Constants.SIZE * Constants.SIZE, Constants.SIZE * Constants.SIZE * Constants.NUMBER_OF_CONSTRAINTS];
+
+            // get the size of sub square
+            int sqrtSize = (int)Math.Sqrt(Constants.SIZE);
 
             // The current column for the cell constraint
             int currentCellConstraintColumn = 0;
@@ -45,7 +48,7 @@ namespace OmegaSudoku
                     int value = board.GetBoard()[row, col];
 
                     // Get the current box number (1 -> size)
-                    int square = (row / (int)Math.Sqrt(Constants.SIZE)) * (int)Math.Sqrt(Constants.SIZE) + col / (int)Math.Sqrt(Constants.SIZE);
+                    int square = (row / sqrtSize) * sqrtSize + col / sqrtSize;
 
                     // Loop through the possible numbers in the current cell
                     for (byte possibleValueForCell = 1; possibleValueForCell <= Constants.SIZE; possibleValueForCell++)
