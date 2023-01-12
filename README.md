@@ -1,6 +1,23 @@
 # Sudoku Solver
 
-This is a sudoku solver written in C# that uses the backtracking algorithm to solve puzzles. It also includes techniques for identifying and solving Naked Single Cells and Hidden Singles.
+This is a sudoku solver written in C# that uses the Dancing Links algorithm to solve puzzles. The solver is able to efficiently solve any Sudoku puzzle that follows the standard constraints:
+
+- First constraint: Each cell can contain only one number, This means that each cell in the puzzle can contain only one number from 1 to 1/4/9/16/25 (relative to the appropriate board).
+
+- Second constraint: Each row must contain the numbers 1 to 1/4/9/16/25: This means that each number from 1 to 1/4/9/16/25 must appear once and only once in each row of the puzzle.
+
+Third constraint: Each column must contain the numbers 1 to 1/4/9/16/25: This means that each number from 1 to 1/4/9/16/25 must appear once and only once in each column of the puzzle.
+
+Fourth constraint: Each sub square in the board (also known as a "block") must contain the numbers 1 to 1/4/9/16/25: This means that each number from 1 to 1/4/9/16/25 must appear once and only once in each sub square of the puzzle.
+
+
+## Input
+
+The program can read input from a file or from the console. The input should be a single string of numbers, where '0' represents an empty cell. The input string should match the dimensions of the desired board size (for example, a 9x9 board should have 81 characters in the input string).
+
+For example, the following input string would represent a partially filled 9x9 Sudoku board:
+
+003020600900305001001806400008102900700000008006708200002609500800203009005010300
 
 
 ## Installation
@@ -16,7 +33,7 @@ To install this sudoku solver, follow these steps:
 2. Open the solution file (OmegaSudoku.sln) in Visual Studio.
 
 3. Build the solution by going to Build > Build Solution or by pressing 'Ctrl + Shift + B'.
-
+  
 
 ## Usage
 
@@ -33,12 +50,4 @@ The sudoku solver will output the solution to the puzzle to the console.
 
 ## Algorithm
 
-The sudoku solver uses the backtracking algorithm to search for a solution to the puzzle. It starts at the first empty cell, and tries each possible value to this cell until it finds a solution or determines that no solution is possible. If no solution is found, it backtracks to the previous cell and tries a different value.
-
-
-
-In addition to the backtracking algorithm, the sudoku solver also uses two techniques to identify and solve cells with a single possibility:
-
-- Naked Single Cells: A cell with a single possible value is called a Naked Single Cell. The solver will automatically fill in any Naked Single Cells it finds.
-
-- Hidden Singles: A cell with a single possible value that is not visible in any of the other cells in its row, column, or sub square is called a Hidden Single. The solver will use the Hidden Singles technique to identify and solve these cells.
+Dancing Links is an algorithm for solving exact cover problems, such as the one used in Sudoku solving. The algorithm is based on the observation that the problem can be represented as a sparse matrix, where the rows represent constraints and the columns represent variables. The algorithm works by recursively deleting columns and rows from the matrix, until a solution is found or it is determined that no solution exists.
