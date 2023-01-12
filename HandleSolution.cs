@@ -15,7 +15,7 @@ namespace OmegaSudoku
         /// this method convert the DLX structure into a int[,] matrix that present the solved board
         /// </summary>
         /// <param name="solution"> the solution of the board in list<DancingNode> </param>
-        public static void SolutionHandler(List<DancingNode> solution)
+        public static int[,] SolutionHandler(List<DancingNode> solution)
         {
             // Initialize the output grid
             int[,] board = new int[Constants.SIZE, Constants.SIZE];
@@ -51,8 +51,27 @@ namespace OmegaSudoku
                 // Place the number in the grid
                 board[row, col] = num;
             }
-            // print the solution of the sudoku board
-            Output.PrintSolution(board);
+            return board;
+        }
+
+        /// <summary>
+        /// this method converts the solution from int[,] matrix into string
+        /// </summary>
+        /// <param name="solution"> the solution of the board in int[,] matrix </param>
+        /// <returns>  </returns>
+        public static string ConvertFromIntMatrixToString(int[,] solution)
+        {
+            string solutionString = "";
+
+            for (int i = 0; i < solution.GetLength(0); i++)
+            {
+                for (int j = 0; j < solution.GetLength(1); j++)
+                {
+                    // add to solutionString the board solution
+                    solutionString += solution[i, j];
+                }
+            }
+            return solutionString;
         }
     }
 }
