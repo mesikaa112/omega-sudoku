@@ -9,14 +9,29 @@ namespace OmegaSudoku
     internal class Output
     {
         /// <summary>
-        /// this method prints the welcome message
+        /// this method prints welcome message to the user
+        /// </summary>
+        public static void WelcomeMessage()
+        {
+            Console.WriteLine("Hello to SUDOKU SOLVER!");
+        }
+
+        /// <summary>
+        /// this method prints the message that force the user to choose were ro input the board
         /// </summary>
         public static void StartSolvingOutput()
         {
-            Console.WriteLine("Hello to SUDOKU SOLVER ! \n" +
-                              "to solve a sudoku board that found in a file type 'file' \n" +
+            Console.WriteLine("to solve a sudoku board that found in a file type 'file' \n" +
                               "to write a sudoku board in the console type 'console' \n" +
                               "to end the solving, type 'end' :)");
+        }
+
+        /// <summary>
+        /// this method prints to the user that his read option is not valid, and he need to type it again
+        /// </summary>
+        public static void InvalidReadOption(string? readOption)
+        {
+            Console.WriteLine("'{0}' is invalid option, try again!", readOption);
         }
 
         /// <summary>

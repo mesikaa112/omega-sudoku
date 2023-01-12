@@ -18,6 +18,8 @@ namespace OmegaSudoku
         /// </summary>
         public static void StartSolving()
         {
+            // print welcome message
+            Output.WelcomeMessage();
             while (true)
             {
                 try
@@ -82,13 +84,13 @@ namespace OmegaSudoku
             {
                 // stop the clock
                 stopwatch.Stop();
-                Console.WriteLine("time passed: {0} milliseconds", stopwatch.ElapsedMilliseconds);
+                Console.WriteLine("solving time passed: {0} milliseconds \n", stopwatch.ElapsedMilliseconds);
                 throw new UnSolveableBoardError("there is an Error! the board is not solveable");
             }
             // if solveable, print the solution
             HandleSolution.SolutionHandler(solution);
             stopwatch.Stop();
-            Console.WriteLine("time passed: {0} milliseconds", stopwatch.ElapsedMilliseconds);
+            Console.WriteLine("solving time passed: {0} milliseconds \n", stopwatch.ElapsedMilliseconds);
         }
 
         /// <summary>
@@ -130,6 +132,8 @@ namespace OmegaSudoku
                 boardString = Menu(readOption);
                 if (boardString != readOption)
                     break;
+                // the readOption is not valid
+                Output.InvalidReadOption(readOption);
             }
             return boardString;
         }
