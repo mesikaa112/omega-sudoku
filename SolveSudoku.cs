@@ -11,7 +11,7 @@ namespace OmegaSudoku
     /// <summary>
     /// this class is responsible for loop the solving of the sudoku and catch all the exceptions
     /// </summary>
-    internal class SolveSudoku
+    public class SolveSudoku
     {
         /// <summary>
         /// this method catches all the exceptions
@@ -24,7 +24,8 @@ namespace OmegaSudoku
             {
                 try
                 {
-                    Solve();
+                    string? boardString = GetBoardString();
+                    Solve(boardString);
                 }
                 catch (InvalidBoardLengthError error)
                 {
@@ -64,33 +65,51 @@ namespace OmegaSudoku
         /// <summary>
         /// this method solves the sudoku board
         /// </summary>
+        /// <param name="boardString"> the unsolved board in string type </param>
+        /// <returns> the solved board in string type </returns>
         /// <exception cref="UnSolveableBoardError"> the board is unsolveable </exception>
-        public static void Solve()
+        public static string Solve(string? boardString)
         {
-            string? boardString = GetBoardString();
             Stopwatch stopwatch = new Stopwatch();
             // start the clock
             stopwatch.Start();
+
+            // check validate of boardString, if valid insert boardString into MatrixIntBoard
             MatrixIntBoard board = SudokuValidation.CheckValidate(boardString);
+
+            // print the board before solved
             Console.WriteLine("The board before solving:");
             Output.PrintBoard(board);
             Console.WriteLine("------------------------------------------------");
+
+            // create the exact cover matrix
             byte[,] cover = ExactCoverMatrix.ChangeToExactCoverMatrix(board);
+
+            // convert the exact cover matrix to DLX structure
             HeaderNode DLXStructure = DLXSolver.CreateDLXStructure(cover);
+
             List<DancingNode> solution = new List<DancingNode>();
-            // if not solveable throw an error
+            // solve the DLX structure, if not solveable throw an error
             bool isSolveabale = DLXSolver.DLXSolve(DLXStructure, solution);
             if (!isSolveabale)
             {
-                // stop the clock
+                // stop the clock and print the time passed
                 stopwatch.Stop();
                 Console.WriteLine("solving time passed: {0} milliseconds \n", stopwatch.ElapsedMilliseconds);
                 throw new UnSolveableBoardError("there is an Error! the board is not solveable");
             }
             // if solveable, print the solution
-            HandleSolution.SolutionHandler(solution);
+            int[,] solutionMatrix = HandleSolution.SolutionHandler(solution);
+
+            // print the solution of the sudoku board
+            Output.PrintSolution(solutionMatrix);
+
+            // stop the clock and print the time passed
             stopwatch.Stop();
             Console.WriteLine("solving time passed: {0} milliseconds \n", stopwatch.ElapsedMilliseconds);
+
+            // returns the solved board
+            return HandleSolution.ConvertFromIntMatrixToString(solutionMatrix);
         }
 
         /// <summary>
