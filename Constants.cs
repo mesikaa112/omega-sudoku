@@ -20,6 +20,9 @@ namespace OmegaSudoku
         public static char[]? VALUES_OF_CELLS;
         public static System.Collections.ArrayList VALID_CHARACTERS = new ArrayList();
 
+        // an array of all the space strings
+        public static string[] SPACE_CHARACTERS = { "\t", " ", "\r", "\a", "\f", "\v", "\b", "\n" };
+
         /// <summary>
         /// thid method added an array list of all the valid characters that can be in the input
         /// </summary>

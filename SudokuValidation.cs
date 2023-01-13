@@ -29,10 +29,10 @@ namespace OmegaSudoku
             // and if the length of the string is valid, set the amount of rols and cols to this sqrt
             double sqrtSize = 0;
             // check if boardString is not null before 
-            if (boardString != null)
-                sqrtSize = Math.Sqrt(boardString.Length);
-            else
+            if (boardString == null || CheckForSpaces(boardString))
                 throw new InvalidBoardLengthError("there is an Error! you entered null instead the board");
+
+            sqrtSize = Math.Sqrt(boardString.Length);
 
             if (sqrtSize != (int)sqrtSize)
             {
@@ -57,6 +57,22 @@ namespace OmegaSudoku
             if (!CheckInSubSqueresValidate(board))
                 throw new TwoValuesInTheSameSubSquareError("there is an Error! there is two same values in the same sub square");
             return board;
+        }
+
+        /// <summary>
+        /// this method checks if there is at least one character that not equals to one of the SPACE_CHARACTERS
+        /// </summary>
+        /// <param name="boardString"> the board in string type </param>
+        /// <returns> true if all the characters in the string is space, false otherwise </returns>
+        public static bool CheckForSpaces(string boardString)
+        {
+            foreach(char character in boardString)
+            {
+                // if there is at least one character that not equals to one of the SPACE_CHARACTERS, return false
+                if (!Constants.SPACE_CHARACTERS.Contains(character.ToString()))
+                    return false;
+            }
+            return true;
         }
 
         /// <summary>
