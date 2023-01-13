@@ -58,7 +58,7 @@ namespace OmegaSudoku
         /// this method converts the solution from int[,] matrix into string
         /// </summary>
         /// <param name="solution"> the solution of the board in int[,] matrix </param>
-        /// <returns>  </returns>
+        /// <returns> the solution of the board in string </returns>
         public static string ConvertFromIntMatrixToString(int[,] solution)
         {
             string solutionString = "";
