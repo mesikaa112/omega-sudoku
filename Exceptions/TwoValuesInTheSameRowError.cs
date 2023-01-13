@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OmegaSudoku.Exceptions
 {
-    internal class TwoValuesInTheSameRowError : Exception
+    public class TwoValuesInTheSameRowError : Exception
     {
         /// <summary>
         /// this class is the two values in the same row custom exception

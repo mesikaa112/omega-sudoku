@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OmegaSudoku.Exceptions
 {
-    internal class InvalidCharactersInTheStringError : Exception
+    public class InvalidCharactersInTheStringError : Exception
     {
         /// <summary>
         /// this class is the invalid character in the string custom exception

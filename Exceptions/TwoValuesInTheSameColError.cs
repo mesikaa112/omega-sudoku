@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OmegaSudoku.Exceptions
 {
-    internal class TwoValuesInTheSameColError : Exception
+    public class TwoValuesInTheSameColError : Exception
     {
         /// <summary>
         /// this class is the two values in the same col custom exception

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OmegaSudoku.Exceptions
 {
-    internal class TwoValuesInTheSameSubSquareError : Exception
+    public class TwoValuesInTheSameSubSquareError : Exception
     {
         /// <summary>
         /// this class is the two values in the same sub square custom exception

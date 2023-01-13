@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OmegaSudoku.Exceptions
 {
-    internal class InvalidBoardLengthError : Exception
+    public class InvalidBoardLengthError : Exception
     {
         /// <summary>
         /// this class is the invalid board length custom exception

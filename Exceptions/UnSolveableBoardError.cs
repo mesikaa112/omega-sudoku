@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OmegaSudoku.Exceptions
 {
-    internal class UnSolveableBoardError : Exception
+    public class UnSolveableBoardError : Exception
     {
         /// <summary>
         /// this class is the unsolveable board custom exception
