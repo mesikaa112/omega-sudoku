@@ -27,6 +27,10 @@ namespace OmegaSudoku
                     string? boardString = GetBoardString();
                     Solve(boardString);
                 }
+                catch (NullBoardError error)
+                {
+                    Console.WriteLine(error.Message + "\n");
+                }
                 catch (InvalidBoardLengthError error)
                 {
                     Console.WriteLine(error.Message + "\n");

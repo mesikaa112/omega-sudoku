@@ -30,7 +30,7 @@ namespace OmegaSudoku
             double sqrtSize = 0;
             // check if boardString is not null before 
             if (boardString == null || CheckForSpaces(boardString))
-                throw new InvalidBoardLengthError("there is an Error! you entered null instead the board");
+                throw new NullBoardError("there is an Error! you entered null instead the board");
 
             sqrtSize = Math.Sqrt(boardString.Length);
 
