@@ -27,7 +27,7 @@ namespace OmegaSudoku
                     
                     string? boardString = GetBoardString();
                     string? outputFilePath = GetOutputString();
-                    Console.WriteLine(Solve(boardString, outputFilePath));
+                    Solve(boardString, outputFilePath);
                 }
                 catch (NullBoardError error)
                 {
@@ -70,7 +70,7 @@ namespace OmegaSudoku
         /// <param name="boardString"> the unsolved board in string type </param>
         /// <returns> the solved board in string type </returns>
         /// <exception cref="UnSolveableBoardError"> the board is unsolveable </exception>
-        public static string Solve(string? boardString, string outputFilePath)
+        public static string Solve(string? boardString, string? outputFilePath)
         {
             Stopwatch stopwatch = new Stopwatch();
             // start the clock
