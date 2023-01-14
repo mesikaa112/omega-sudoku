@@ -24,8 +24,10 @@ namespace OmegaSudoku
             {
                 try
                 {
+                    
                     string? boardString = GetBoardString();
-                    Solve(boardString);
+                    string? outputFilePath = GetOutputString();
+                    Console.WriteLine(Solve(boardString, outputFilePath));
                 }
                 catch (NullBoardError error)
                 {
@@ -59,10 +61,6 @@ namespace OmegaSudoku
                 {
                     Console.WriteLine(error.Message + "\n");
                 }
-                catch (NullReferenceException error)
-                {
-                    Console.WriteLine(error.Message + "\n");
-                }
             }
         }
 
@@ -72,7 +70,7 @@ namespace OmegaSudoku
         /// <param name="boardString"> the unsolved board in string type </param>
         /// <returns> the solved board in string type </returns>
         /// <exception cref="UnSolveableBoardError"> the board is unsolveable </exception>
-        public static string Solve(string? boardString)
+        public static string Solve(string? boardString, string outputFilePath)
         {
             Stopwatch stopwatch = new Stopwatch();
             // start the clock
@@ -112,8 +110,14 @@ namespace OmegaSudoku
             stopwatch.Stop();
             Console.WriteLine("solving time passed: {0} milliseconds \n", stopwatch.ElapsedMilliseconds);
 
+            // convert the solution into string
+            string solutionString = HandleSolution.ConvertFromIntMatrixToString(solutionMatrix);
+
+            // write the solution into file (if it should be written into)
+            WriteToFile(outputFilePath, solutionString);
+
             // returns the solved board
-            return HandleSolution.ConvertFromIntMatrixToString(solutionMatrix);
+            return solutionString;
         }
 
         /// <summary>
@@ -142,6 +146,26 @@ namespace OmegaSudoku
         }
 
         /// <summary>
+        /// this method returns the path of the file if the user wants to print the solution into file,
+        /// if not, return empty path
+        /// </summary>
+        /// <param name="outputOption"> the option that the user selected to print the solution </param>
+        /// <returns> the path of the file if the user wants to print the solution into file, if not, empty path </returns>
+        public static string? OutputMenu(string? outputOption)
+        {
+            switch (outputOption)
+            {
+                case "file":
+                    string? filePath = Output.GetFilePath();
+                    return filePath;
+                case "console":
+                    return "";
+                default:
+                    return outputOption;
+            }
+        }
+
+        /// <summary>
         /// this method returns the board string by the relevant option
         /// </summary>
         /// <returns> the board string by the relevant option </returns>
@@ -162,6 +186,26 @@ namespace OmegaSudoku
         }
 
         /// <summary>
+        /// this method gets from the user the path of the file that the solution will be written into
+        /// </summary>
+        /// <returns> the path of the file that the solution will be written into </returns>
+        public static string? GetOutputString()
+        {
+            string? filePath = "";
+            while (true)
+            {
+                Output.PrintOutputOption();
+                string? outputOption = Console.ReadLine();
+                filePath = OutputMenu(outputOption);
+                if (filePath != outputOption)
+                    break;
+                // the outputOption is not valid
+                Output.InvalidOutputOption(outputOption);
+            }
+            return filePath;
+        }
+
+        /// <summary>
         /// this method gets from a file the string of the board
         /// </summary>
         /// <returns> the string of the board </returns>
@@ -175,6 +219,19 @@ namespace OmegaSudoku
             else
                 throw new FileNotFoundException("there is an Error! file not found");
             return boardString;
+        }
+
+        /// <summary>
+        /// this method writes the solution in string type to file
+        /// </summary>
+        /// <param name="filePath"> the full path of the file that the solution should be written into </param>
+        /// <param name="solutionString"> the solution of the board in string type </param>
+        public static void WriteToFile(string? filePath, string solutionString)
+        {
+            // if the file path is empty or only spaces, don't write the silution into file,
+            // otherwise write the solution into filePath file
+            if (filePath != "" && filePath != null && !SudokuValidation.CheckForSpaces(filePath))
+                File.WriteAllText(filePath, solutionString);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace OmegaSudoku
         }
 
         /// <summary>
-        /// this method prints the message that force the user to choose were ro input the board
+        /// this method prints the message that force the user to choose were to input the board
         /// </summary>
         public static void StartSolvingOutput()
         {
@@ -27,11 +27,28 @@ namespace OmegaSudoku
         }
 
         /// <summary>
+        /// this method prints the message that force the user to choose were to output the solution
+        /// </summary>
+        public static void PrintOutputOption()
+        {
+            Console.WriteLine("If you want to print the solution of the board into file, Enter 'file' \n" +
+                "If not, enter 'console' :");
+        }
+
+        /// <summary>
         /// this method prints to the user that his read option is not valid, and he need to type it again
         /// </summary>
         public static void InvalidReadOption(string? readOption)
         {
             Console.WriteLine("'{0}' is invalid option, try again!", readOption);
+        }
+
+        /// <summary>
+        /// this method prints to the user that his read option is not valid, and he need to type it again
+        /// </summary>
+        public static void InvalidOutputOption(string? outputOption)
+        {
+            Console.WriteLine("'{0}' is invalid option, try again!", outputOption);
         }
 
         /// <summary>
