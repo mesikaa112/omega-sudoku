@@ -34,7 +34,8 @@ namespace OmegaSudoku
 
             sqrtSize = Math.Sqrt(boardString.Length);
 
-            if (sqrtSize != (int)sqrtSize)
+            // check if the amount of the cells is valid
+            if (sqrtSize != (int)sqrtSize || (int)sqrtSize > 25)
             {
                 throw new InvalidBoardLengthError("there is an Error! you enterd invalid amount of cells");
             }
