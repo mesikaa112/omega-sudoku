@@ -76,7 +76,7 @@ namespace OmegaSudoku
         /// <exception cref="UnSolveableBoardError"> the board is unsolveable </exception>
         public static string Solve(string? boardString, string? outputFilePath)
         {
-            Stopwatch stopwatch = new Stopwatch();
+            Stopwatch stopwatch = new();
             // start the clock
             stopwatch.Start();
 
@@ -94,7 +94,7 @@ namespace OmegaSudoku
             // convert the exact cover matrix to DLX structure
             HeaderNode DLXStructure = DLXSolver.CreateDLXStructure(cover);
 
-            List<DancingNode> solution = new List<DancingNode>();
+            List<DancingNode> solution = new();
             // solve the DLX structure, if not solveable throw an error
             bool isSolveabale = DLXSolver.DLXSolve(DLXStructure, solution);
             if (!isSolveabale)
@@ -196,18 +196,21 @@ namespace OmegaSudoku
         /// <returns> the path of the file that the solution will be written into </returns>
         public static string? GetOutputString()
         {
-            string? filePath = "";
+            string? filePath;
             while (true)
             {
                 Output.PrintOutputOption();
                 string? outputOption = Console.ReadLine();
                 filePath = OutputMenu(outputOption);
-                // if filePath is null, throw FileNotFoundException
-                if (outputOption == "file" && (filePath == null || filePath == ""))
-                    throw new FileNotFoundException("there is an Error! entered null instead a file path");
-                // if the file is not ends with .txt (it means that the file is not a text file), throw 
-                else if (outputOption == "file" && !filePath.EndsWith(".txt"))
-                    throw new FileIsNotTextFileException("there is an Error the file is not a text file");
+                if (outputOption == "file")
+                {
+                    // if filePath is null, throw FileNotFoundException
+                    if (filePath == null || filePath == "")
+                        throw new FileNotFoundException("there is an Error! entered null instead a file path");
+                    // if the file is not ends with .txt (it means that the file is not a text file), throw
+                    else if (!filePath.EndsWith(".txt"))
+                        throw new FileIsNotTextFileException("there is an Error the file is not a text file");
+                }
                 if (filePath != outputOption)
                     break;
                 // the outputOption is not valid
@@ -222,7 +225,7 @@ namespace OmegaSudoku
         /// <returns> the string of the board </returns>
         public static string? ReadFromFile(string? filePath)
         {
-            string? boardString = null;
+            string? boardString;
             // if filePath is null, throw FileNotFoundException
             if (filePath == null || filePath == "")
                 throw new FileNotFoundException("there is an Error! entered null instead a file path");
