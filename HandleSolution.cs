@@ -68,7 +68,7 @@ namespace OmegaSudoku
                 for (int j = 0; j < solution.GetLength(1); j++)
                 {
                     // add to solutionString the board solution
-                    solutionString += solution[i, j];
+                    solutionString += (char)(solution[i, j] + '0');
                 }
             }
             return solutionString;
