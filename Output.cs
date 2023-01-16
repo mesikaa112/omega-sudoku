@@ -65,7 +65,7 @@ namespace OmegaSudoku
         /// <returns> the file path </returns>
         public static string? GetFilePath()
         {
-            Console.WriteLine("Enter a File Path:");
+            Console.WriteLine("Enter a Full File Path or Relative File Path:");
             string? filePath = Console.ReadLine();
             return filePath;
         }

@@ -57,6 +57,10 @@ namespace OmegaSudoku
                 {
                     Console.WriteLine(error.Message + "\n");
                 }
+                catch (FileIsNotTextFileException error)
+                {
+                    Console.WriteLine(error.Message + "\n");
+                }
                 catch (FileNotFoundException error)
                 {
                     Console.WriteLine(error.Message + "\n");
@@ -197,6 +201,12 @@ namespace OmegaSudoku
                 Output.PrintOutputOption();
                 string? outputOption = Console.ReadLine();
                 filePath = OutputMenu(outputOption);
+                // if filePath is null, throw FileNotFoundException
+                if (filePath == null || filePath == "")
+                    throw new FileNotFoundException("there is an Error! entered null instead a file path");
+                // if the file is not ends with .txt (it means that the file is not a text file), throw 
+                else if (!filePath.EndsWith(".txt"))
+                    throw new FileIsNotTextFileException("there is an Error the file is not a text file");
                 if (filePath != outputOption)
                     break;
                 // the outputOption is not valid
@@ -213,11 +223,14 @@ namespace OmegaSudoku
         {
             string? filePath = Output.GetFilePath();
             string? boardString = null;
-            // if filePath is not null read from file, else throw an error
-            if (filePath != null)
-                boardString = File.ReadAllText(filePath);
+            // if filePath is null, throw FileNotFoundException
+            if (filePath == null || filePath == "")
+                throw new FileNotFoundException("there is an Error! entered null instead a file path");
+            // if the file is not ends with .txt (it means that the file is not a text file), throw 
+            else if (!filePath.EndsWith(".txt"))
+                throw new FileIsNotTextFileException("there is an Error the file is not a text file");
             else
-                throw new FileNotFoundException("there is an Error! file not found");
+                boardString = File.ReadAllText(filePath);
             return boardString;
         }
 
