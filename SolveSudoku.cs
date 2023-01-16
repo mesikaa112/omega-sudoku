@@ -24,10 +24,10 @@ namespace OmegaSudoku
             {
                 try
                 {
-                    
                     string? boardString = GetBoardString();
                     string? outputFilePath = GetOutputString();
-                    Solve(boardString, outputFilePath);
+                    string solutionString = Solve(boardString, outputFilePath);
+                    Output.PrintInTheStringFormatSolution(solutionString);
                 }
                 catch (NullBoardError error)
                 {

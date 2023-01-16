@@ -82,6 +82,15 @@ namespace OmegaSudoku
         }
 
         /// <summary>
+        /// this method prints to the console the solution in a line of string
+        /// </summary>
+        /// <param name="solutionString"> the solution in a line of string </param>
+        public static void PrintInTheStringFormatSolution(string solutionString)
+        {
+            Console.WriteLine("The Solution in a line of string: \n{0}", solutionString);
+        }
+
+        /// <summary>
         /// this method prints the board before solving
         /// </summary>
         /// <param name="board"> the board of the sudoku </param>
