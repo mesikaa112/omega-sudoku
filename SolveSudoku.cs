@@ -134,7 +134,8 @@ namespace OmegaSudoku
             switch (readOption)
             {
                 case "file":
-                    string? boardString = ReadFromFile();
+                    string? filePath = Output.GetFilePath();
+                    string? boardString = ReadFromFile(filePath);
                     return boardString;
                 case "console":
                     boardString = Output.ReadFromConsole();
@@ -202,10 +203,10 @@ namespace OmegaSudoku
                 string? outputOption = Console.ReadLine();
                 filePath = OutputMenu(outputOption);
                 // if filePath is null, throw FileNotFoundException
-                if (filePath == null || filePath == "")
+                if (outputOption == "file" && (filePath == null || filePath == ""))
                     throw new FileNotFoundException("there is an Error! entered null instead a file path");
                 // if the file is not ends with .txt (it means that the file is not a text file), throw 
-                else if (!filePath.EndsWith(".txt"))
+                else if (outputOption == "file" && !filePath.EndsWith(".txt"))
                     throw new FileIsNotTextFileException("there is an Error the file is not a text file");
                 if (filePath != outputOption)
                     break;
@@ -219,9 +220,8 @@ namespace OmegaSudoku
         /// this method gets from a file the string of the board
         /// </summary>
         /// <returns> the string of the board </returns>
-        public static string? ReadFromFile()
+        public static string? ReadFromFile(string? filePath)
         {
-            string? filePath = Output.GetFilePath();
             string? boardString = null;
             // if filePath is null, throw FileNotFoundException
             if (filePath == null || filePath == "")
